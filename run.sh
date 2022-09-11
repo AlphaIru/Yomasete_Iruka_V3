@@ -1,0 +1,1 @@
+python3 /home/ubuntu/Yomasete_Iruka_V3/iru.py
