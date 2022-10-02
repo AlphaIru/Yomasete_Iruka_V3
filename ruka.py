@@ -1,23 +1,15 @@
 """ルカのメインコード."""
 # coding: utf-8
 
-import time
 import traceback
 
 import discord
-from discord import ApplicationContext
-from discord.commands import SlashCommandGroup
 from discord.ext import commands
 
-from discord_misc.embed_creator import create_embed
-
-from semi_secret.log import make_new_log
-from semi_secret.get_token import get_token
-from messages.get_message import get_pronoun, get_message
-from messages.slash import get_slash_messages
+from semi_secret.log import make_new_log  # pylint: disable=import-error
+from semi_secret.get_token import get_token  # pylint: disable=import-error
 
 
-BOT_COLOR = 0xF5B0D6
 BOT_NAME = "Ruka"
 PREFIX = "!ruka "
 
@@ -34,6 +26,8 @@ intents = discord.Intents(
     guild_reactions=True,
 )
 bot_client = commands.AutoShardedBot(command_prefix=PREFIX, intents=intents)
+
+cogs_list = ["misc"]
 
 
 class GuildData:
@@ -96,39 +90,9 @@ async def on_shard_resume(shard_id):
     return
 
 
-class MiscCommands(commands.Cog, name="Miscellaneous"):
-    """ヘルプとかのコマンドを保存してる場所."""
-
-    def __init__(self, bot: discord.Bot):
-        """MiscCommandsのイニシャライズ."""
-        self.bot = bot
-
-    miscellaneous = SlashCommandGroup(
-        name="miscellaneous",
-        description="Various tool like commands!",
-    )
-
-    @miscellaneous.command(
-        name="ping",
-        description=get_slash_messages("ping", "main", BOT_NAME, get_pronoun(BOT_NAME)),
-    )
-    async def ping(self, ctx: ApplicationContext):
-        """BotへのLatency&処理時間 (通称: Ping) の計測."""
-        if ctx.author.bot:
-            return
-        before = time.perf_counter()
-        pong_latency = round(bot_client.latency * 1000, 2)
-        pong_process = round((time.perf_counter() - before) * 1000, 2)
-        message_lang = "Jp"
-        r_msg, _ = await get_message(
-            message_lang, BOT_CLIENT_ID, "ping", pong_latency, pong_process
-        )
-        await create_embed(ctx, BOT_COLOR, r_msg)
-        return
-
-
 try:
-    bot_client.add_cog(MiscCommands(bot_client))
+    for cog in cogs_list:
+        bot_client.load_extension(f"{cog}")
 except Exception:  # pylint: disable=broad-except
     make_new_log(traceback.format_exc())
 

@@ -4,12 +4,16 @@
 import discord
 
 
+bot_id_to_color = {820128974176649266: 0xF5B0D6}
+
+
 async def create_embed(
     ctx,
-    bot_color,
+    bot_id,
     r_msg,
 ):
     """Embedを作成."""
+    bot_color = bot_id_to_color[bot_id]
     if "url" in r_msg:
         embed = discord.Embed(
             title=r_msg["title"],

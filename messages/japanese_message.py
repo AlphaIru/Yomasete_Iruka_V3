@@ -103,7 +103,9 @@ jp_enumrated_voices = {
 }
 
 
-async def get_jp_msg_voice(bot_name, bot_id, message_type, input1=None, input2=None):  # noqa: E501
+async def get_jp_msg_voice(
+    bot_name, bot_id, message_type, input1=None, input2=None
+):  # noqa: E501
     """日本語の文章を取得."""
     input1 = "" if input1 is None else str(input1)
     input2 = "" if input2 is None else str(input2)
@@ -747,16 +749,16 @@ async def get_jp_msg_voice(bot_name, bot_id, message_type, input1=None, input2=N
         "forcejapanese_T": "こ、これからは…、日本語のボイスだけで…、よ、読み上げ…、ます!",
         "forcejapanese_F": "こ、これからは…、日本語のボイスだけで…、よ、読み上げ…、ません!",
         "voicedescription": "え、選んだ声の…、せ、説明を…、出します!",
-        "defaultvoice": f"こ、これからは…、{input1[0]}、{input1}のボイスが…、デフォルトの設定と…、な、なります!",
-        "editvoice": f"こ、これからは…、{input1[0]}、{input1}、のボイスが…、以下の設定と…、な、なります!",
-        "showvoice": f"{input1[0]}、{input1}のボイスは…、い、以下の通りです!",
+        "defaultvoice": f"こ、これからは…、{input1}のボイスが…、デフォルトの設定と…、な、なります!",
+        "editvoice": f"こ、これからは…、{input1}、のボイスが…、以下の設定と…、な、なります!",
+        "showvoice": f"{input1}のボイスは…、い、以下の通りです!",
         "voiceissecret": "わ、私の声は…、ひ、秘密です!(は、恥ずかしいので…、き、聞かないでください!)",
-        "showsettings": f"{input1[0]}、{input1}の設定は…、い、以下の通りです!",
+        "showsettings": f"{input1}の設定は…、い、以下の通りです!",
         "wordlimit": f"こ、これからは…、よ、読み上げる文字数の…、上限数を{input1}文字に…、せ、設定します!",
         "deleteallwords": "こ、このサーバーの辞書に…、登録されてる単語を…、全て削除しました!",
         "resetsettings": "こ、このサーバーの設定を…、す、全てリセットしました!",
-        "addintolist": f"{input1[0]}、{input1}を…、{input2[0]}、{input2}に…、つ、追加しました!",
-        "removefromlist": f"{input1[0]}、{input1}を…、{input2[0]}、{input2}から…、は、外しました!",
+        "addintolist": f"{input1}を…、{input2}に…、つ、追加しました!",
+        "removefromlist": f"{input1}を…、{input2}から…、は、外しました!",
         "voicelist": "わ、私が扱える…、ボイスです!ど、どうぞ、色々と試して…、く、ください!",
         "troubleshoot": "わ、私が何か…、失敗した時の…、対処法です!い、以下の順に、試して…、く、ください!",
         "oldhello": "そ、そのコマンドは…、もう使えません!す、スラッシュコマンドで呼んで…、く、ください!",
@@ -770,17 +772,17 @@ async def get_jp_msg_voice(bot_name, bot_id, message_type, input1=None, input2=N
         "pause": "い、今、よ、読み上げを…、い、一時停止しました!",
         "resume": "い、今、よ、読み上げを…、再開しました!",
         "reboot": "い、今、入り直し…、し、しました!",
-        "move": f"い、今、{input1[0]}、{input1}に…、移動しました!",
-        "send": f"い、今、{input1[0]}、{input1}に…、移動しました!",
-        "addword": f"{input1[0]}、{input1}を辞書に…、と、登録しました!",
-        "reword": f"{input1[0]}、{input1}を辞書に…、と、登録し直しました!",
+        "move": f"い、今、{input1}に…、移動しました!",
+        "send": f"い、今、{input1}に…、移動しました!",
+        "addword": f"{input1}を辞書に…、と、登録しました!",
+        "reword": f"{input1}を辞書に…、と、登録し直しました!",
         "importfile": "か、各単語を…、ファイルから辞書に…、い、インポートしました!",
         "exportfile": "か、各単語を…、辞書からファイルに…、え、エクスポートしました!",
-        "deleteword": f"じ、辞書から、{input1[0]}、{input1}を、外しました!",
+        "deleteword": f"じ、辞書から、{input1}を、外しました!",
         "botdiscordlink": "わ、私達を呼ぶリンクと…、私達の…、ディスコードサーバーの…、り、リンクです!よ、よろしく…、お願いします!",
-        "addchannel": f"こ、これからは…、{input1[0]}、{input1}のメッセージを、よ、読み上げます!",
+        "addchannel": f"こ、これからは…、{input1}のメッセージを、よ、読み上げます!",
         "byechannel": "よ、読み上げるチャンネルが…、無くなりましたので、し、失礼します!",
-        "removechannel": f"こ、これからは…、{input1[0]}、{input1}の…、メッセージを…、よ、読み上げません!",
+        "removechannel": f"こ、これからは…、{input1}の…、メッセージを…、よ、読み上げません!",
         "botmention": "へ、ヘルプなら…、スラッシュヘルプと…、お、送ってください!",
         "byevoicesingle": "ぼ、ボイスチャットに…、誰もいなくなったので…、し、失礼します!",
         "byevoicebot": "ぼ、ボイスチャットに…、ボットしか…、いなくなったので…、し、失礼します!",
@@ -789,9 +791,9 @@ async def get_jp_msg_voice(bot_name, bot_id, message_type, input1=None, input2=N
         # -----
         "missingvoice": "せ、設定したボイスは…、そ、存在しません!",
         "nowordsindictionary": "じ、辞書に単語が…、一つも…、あ、ありません!",
-        "toomuchinlist": f"{input2[0]}、{input2}は只今…、満杯です!{input1}を足す前に…、い、いくつか外してください!",
-        "repeatinlist": f"{input1[0]}、{input1}はすでに…、{input2[0]}、{input2}に登録されています!",
-        "notinlist": f"{input1[0]}、{input1}は…、{input2}に…、と、登録されていません!",
+        "toomuchinlist": f"{input2}は只今…、満杯です!{input1}を足す前に…、い、いくつか外してください!",
+        "repeatinlist": f"{input1}はすでに…、{input2}に登録されています!",
+        "notinlist": f"{input1}は…、{input2}に…、と、登録されていません!",
         "usernotconnected": "だ、誰かが私を…、よ、呼ぼうとしています!",
         "alreadyconnected": "わ、私はすでに、ぼ、ボイス、ちゃ、チャットに、つ、繋がって、い、います!",
         "otherdolphinconnected": "わ、私の、と、友達が、す、すでに、つ、繋がって、い、います!",
@@ -811,9 +813,9 @@ async def get_jp_msg_voice(bot_name, bot_id, message_type, input1=None, input2=N
         "filecorrupted": "ふぁ、ファイルが、こ、壊れてる、か、可能性が、あ、あります!",
         "filetypeerror": "ふぁ、ファイルの、な、中身が、す、String、で、では、あ、ありません!",
         "noword": "そ、そんな、た、単語は、と、登録、さ、されて、い、いません!",
-        "toomanychannels": f"よ、読み、あ、上げる、め、メッセージ、ちゃ、チャンネルが、お、多すぎます!{input1[0]}、{input1}を、た、足す前に、い、いくつか、外して、く、ください!",
-        "channelalreadyadded": f"{input1[0]}、{input1}は、も、もう、よ、読み、あ、上げる、め、メッセージ、ちゃ、チャンネルに、と、登録、さ、されて、い、います!",
-        "channelnotadded": f"{input1[0]}、{input1}は、よ、読み、あ、上げる、め、メッセージ、ちゃ、チャンネルに、と、登録、さ、されて、い、いません!",
+        "toomanychannels": f"よ、読み、あ、上げる、め、メッセージ、ちゃ、チャンネルが、お、多すぎます!{input1}を、た、足す前に、い、いくつか、外して、く、ください!",
+        "channelalreadyadded": f"{input1}は、も、もう、よ、読み、あ、上げる、め、メッセージ、ちゃ、チャンネルに、と、登録、さ、されて、い、います!",
+        "channelnotadded": f"{input1}は、よ、読み、あ、上げる、め、メッセージ、ちゃ、チャンネルに、と、登録、さ、されて、い、いません!",
         "missingarguments": "こ、この、こ、コマンドに、ひ、必要な、よ、要件が、た、足りません!",
         "botmissingpermissions": "こ、この、こ、コマンドに、ひ、必要な、け、権限が、た、足りません!",
         "cooldown": f"こ、コマンドの、お、送り、す、過ぎです! ちょ、ちょっと、と、{input1}秒、ま、まってね!",
@@ -843,7 +845,7 @@ async def get_jp_msg_voice(bot_name, bot_id, message_type, input1=None, input2=N
         else:
             return jp_voice_iru[message_type]
 
-    return jp_message[message_type], id_to_voice(bot_id)
+    return jp_message[message_type], await id_to_voice(bot_id)
 
 
 # pylint: enable=line-too-long

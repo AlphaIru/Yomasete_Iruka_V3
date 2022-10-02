@@ -868,7 +868,7 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         except NameError:
             return en_voice_iru[message_type]
 
-    return en_message[message_type], id_to_voice(bot_id)
+    return en_message[message_type], await id_to_voice(bot_id)
 
 
 async def id_to_pronoun(bot_id):

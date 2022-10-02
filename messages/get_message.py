@@ -151,6 +151,6 @@ async def get_callout_message(callout_type="None", lang="Jp", display_name=""):
 
 def get_pronoun(bot_client):
     """代名詞を取得する."""
-    if bot_client == "Ruka":
+    if bot_client == 820128974176649266:
         return "her"
     return "his"
