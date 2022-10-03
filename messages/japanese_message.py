@@ -621,6 +621,13 @@ async def get_jp_msg_voice(
             "title": "Error",
             "description": f"{bot_name}は今、暇そうにしています!",
         },
+        "unknownerror": {
+            "title": "Error",
+            "description": "深刻なエラーが発生しました! このエラーをイルカの住処に報告してください!",
+            "em_addons": {
+                "Details": input1,
+            },
+        },
     }
 
     jp_voice_iru = {
@@ -723,6 +730,7 @@ async def get_jp_msg_voice(
         "inblacklist": "ブラックリストに登録されてるよ!シランガナ!",
         "notinwhitelist": "ホワイトリストに登録されてないよ!シランガナ!",
         "botbored": "つまんないよ!シランガナ!",
+        "unknownerror": "このエラーをすぐに報告してね!",
     }
 
     jp_voice_ruka = {
@@ -825,6 +833,7 @@ async def get_jp_msg_voice(
         "inblacklist": "ぶ、ブラック、り、リストに、と、登録、さ、されて、い、います!",
         "notinwhitelist": "ほ、ホワイト、り、リストに、と、登録、さ、されて、い、いません!",
         "botbored": "す、少し、あ、遊び、た、たいです!",
+        "unknownerror": "こ、このエラーをすぐに、ほ、報告してください!",
     }
 
     jp_voice_dolun = jp_voice_iru

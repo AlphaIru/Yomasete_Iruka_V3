@@ -641,6 +641,11 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
             "title": "Bored",
             "description": f"{bot_name} is bored!",
         },
+        "unknownerror": {
+            "title": "Error",
+            "description": "Serious error just happened! Please report this bug to the pod immediately!",
+            "em_addons": input1,
+        }
     }
 
     en_voice_iru = {
@@ -743,6 +748,7 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "inblacklist": "You are in the blacklist!",
         "notinwhitelist": "You are not in the whitelist!",
         "botbored": "I am bored!",
+        "unknownerror": "Please report the bug immediately!"
     }
 
     en_voice_ruka = {
@@ -845,6 +851,7 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "inblacklist": "You are in the blacklist!",
         "notinwhitelist": "You are not in the whitelist!",
         "botbored": "I am bored!",
+        "unknownerror": "please report this bug immediately!",
     }
 
     en_voice_dolun = en_voice_iru

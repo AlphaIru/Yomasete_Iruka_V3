@@ -3,17 +3,22 @@
 
 import time
 
+# import traceback
+
 import discord
-from discord import ApplicationContext
+from discord import ApplicationContext, DiscordException
 from discord.commands import SlashCommandGroup
 from discord.ext import commands
+from discord.ext.commands import cooldown, CommandOnCooldown
+from discord.ext.commands.cooldowns import BucketType
 
-from messages.slash import get_slash_messages  # pylint: disable=import-error
+
+from messages.slash import slash_messages  # pylint: disable=import-error
 from messages.get_message import get_message  # pylint: disable=import-error
 from discord_misc.embed_creator import create_embed  # pylint: disable=import-error
 
 # for debug:
-message_lang = "Jp"
+message_lang = "En"
 
 
 class MiscCommands(commands.Cog, name="Miscellaneous"):
@@ -23,20 +28,29 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
         """MiscCommandsのイニシャライズ."""
         self.bot = bot
 
-    @commands.Cog.listener(name="ready")
-    async def on_ready(self):
-        """Ready時のセットアップ."""
-        return
-
     miscellaneous = SlashCommandGroup(
         name="miscellaneous",
         description="Various tool like commands!",
     )
 
     @miscellaneous.command(
-        name="ping",
-        description=get_slash_messages("ping", "main"),
+        name="bot_discord_links",
+        description=slash_messages["botdiscordlink"]["main"],
     )
+    @cooldown(2, 60, BucketType.user)
+    async def bot_link(self, ctx: ApplicationContext):
+        """イルカのリンクを送るコマンド."""
+        if ctx.author.bot:
+            return
+        r_msg, _ = await get_message(message_lang, self.bot.user.id, "botdiscordlink")
+        await create_embed(ctx, self.bot.user.id, r_msg)
+        return
+
+    @miscellaneous.command(
+        name="ping",
+        description=slash_messages["ping"]["main"],
+    )
+    @cooldown(2, 60, BucketType.user)
     async def ping(self, ctx: ApplicationContext):
         """BotへのLatency&処理時間 (通称: Ping) の計測."""
         if ctx.author.bot:
@@ -51,14 +65,43 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
         return
 
     @miscellaneous.command(
-        name="bot_discord_links",
-        description=get_slash_messages("botdiscordlink", "main"),
+        name="troubleshoot", description=slash_messages["troubleshoot"]["main"]
     )
-    async def bot_link(self, ctx: ApplicationContext):
-        """イルカのリンクを送るコマンド."""
+    @cooldown(2, 60, BucketType.user)
+    async def troubleshoot(self, ctx: ApplicationContext):
+        """トラブルシュートの表示."""
         if ctx.author.bot:
             return
-        r_msg, _ = await get_message(message_lang, self.bot.user.id, "botdiscordlink")
+        r_msg, _ = await get_message(message_lang, self.bot.user.id, "troubleshoot")
+        await create_embed(ctx, self.bot.user.id, r_msg)
+        return
+
+    @miscellaneous.command(
+        name="voicelist",
+        description=slash_messages["voicelist"]["main"],
+    )
+    @cooldown(2, 60, BucketType.user)
+    async def voicelist(self, ctx: ApplicationContext):
+        """使えるボイスリストの表示."""
+        if ctx.author.bot:
+            return
+        r_msg, _ = await get_message(message_lang, self.bot.user.id, "voicelist")
+        await create_embed(ctx, self.bot.user.id, r_msg)
+        return
+
+    @commands.Cog.listener()
+    async def on_application_command_error(
+        self, ctx: ApplicationContext, error: DiscordException
+    ):
+        """エラーが発生したときのコマンド."""
+        if isinstance(error, CommandOnCooldown):
+            r_msg, _ = await get_message(
+                message_lang, self.bot.user.id, "cooldown", int(error.retry_after)
+            )
+        else:
+            r_msg, _ = await get_message(
+                message_lang, self.bot.user.id, "unknownerror", error
+            )
         await create_embed(ctx, self.bot.user.id, r_msg)
         return
 
@@ -66,3 +109,8 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
 def setup(bot):
     """このclassを追加."""
     bot.add_cog(MiscCommands(bot))
+
+
+def teardown(bot):
+    """このclassを排除."""
+    bot.remove_cog(MiscCommands(bot))

@@ -178,8 +178,3 @@ slash_messages = {
         "channel": "Select the channel, which one you want the dolphin not to read out!",
     },
 }
-
-
-def get_slash_messages(command_type, search_msg):
-    """スラッシュコマンド用の文章を取得する関数."""
-    return slash_messages[command_type][search_msg]

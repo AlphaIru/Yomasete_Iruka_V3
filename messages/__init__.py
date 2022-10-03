@@ -3,4 +3,4 @@
 
 # pylama: ignore=W0611
 from .get_message import get_pronoun
-from .slash import get_slash_messages
+from .slash import slash_messages
