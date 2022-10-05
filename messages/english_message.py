@@ -644,7 +644,10 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "unknownerror": {
             "title": "Error",
             "description": "Serious error just happened! Please report this bug to the pod immediately!",
-            "em_addons": input1,
+            "em_addons": {
+                "Name of the Error: ": type(input1).__name__,
+                "Description of the Error: ": str(input1)
+            },
         }
     }
 

@@ -27,6 +27,7 @@ async def create_embed(
             description=r_msg["description"],
             color=(bot_color),
         )
+
     if "em_addons" not in r_msg:
         await ctx.respond(embed=embed)
         return
@@ -38,5 +39,8 @@ async def create_embed(
             inline=False,
         )
 
-    await ctx.respond(embed=embed)
+    if hasattr(ctx, "respond"):
+        await ctx.respond(embed=embed)
+    else:
+        await ctx.send(embed=embed)
     return

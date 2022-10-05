@@ -2,9 +2,6 @@
 # coding: utf-8
 
 import time
-
-# import traceback
-
 import discord
 from discord import ApplicationContext, DiscordException
 from discord.commands import SlashCommandGroup
@@ -33,6 +30,11 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
         description="Various tool like commands!",
     )
 
+    documentations = miscellaneous.create_subgroup(
+        name="documentations",
+        description="Links to the documentations of this bot!",
+    )
+
     @miscellaneous.command(
         name="bot_discord_links",
         description=slash_messages["botdiscordlink"]["main"],
@@ -43,6 +45,19 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
         if ctx.author.bot:
             return
         r_msg, _ = await get_message(message_lang, self.bot.user.id, "botdiscordlink")
+        await create_embed(ctx, self.bot.user.id, r_msg)
+        return
+
+    @documentations.command(
+        name="help",
+        description=slash_messages["help"]["main"],
+    )
+    @cooldown(2, 60, BucketType.user)
+    async def help(self, ctx: discord.ApplicationContext):
+        """ヘルプサイトのリンクを表示."""
+        if ctx.author.bot:
+            return
+        r_msg, _ = await get_message(message_lang, self.bot.user.id, "help")
         await create_embed(ctx, self.bot.user.id, r_msg)
         return
 
@@ -64,7 +79,7 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
         await create_embed(ctx, self.bot.user.id, r_msg)
         return
 
-    @miscellaneous.command(
+    @documentations.command(
         name="troubleshoot", description=slash_messages["troubleshoot"]["main"]
     )
     @cooldown(2, 60, BucketType.user)
@@ -76,7 +91,7 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
         await create_embed(ctx, self.bot.user.id, r_msg)
         return
 
-    @miscellaneous.command(
+    @documentations.command(
         name="voicelist",
         description=slash_messages["voicelist"]["main"],
     )

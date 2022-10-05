@@ -4,13 +4,26 @@
 import traceback
 
 import discord
-from discord import ApplicationContext, DiscordException, ExtensionNotLoaded, ExtensionAlreadyLoaded
-from discord.commands import SlashCommandGroup
+from discord import (
+    ApplicationContext,
+    DiscordException,
+    ExtensionNotFound,
+    ExtensionNotLoaded,
+    ExtensionAlreadyLoaded,
+)
 from discord.ext import commands
 from discord.ext.commands import NotOwner, CommandOnCooldown
 
 from semi_secret.log import make_new_log  # pylint: disable=import-error
 from semi_secret.get_token import get_token  # pylint: disable=import-error
+
+
+from messages.get_message import get_message  # pylint: disable=import-error
+from discord_misc.embed_creator import create_embed  # pylint: disable=import-error
+
+
+# for debug:
+message_lang = "En"
 
 
 BOT_NAME = "Ruka"
@@ -28,13 +41,13 @@ intents = discord.Intents(
     voice_states=True,
     guild_reactions=True,
 )
-bot_client = discord.AutoShardedBot(
+bot_client = commands.AutoShardedBot(
     command_prefix=PREFIX,
     intents=intents,
     owner_id=425848318044930048,
 )
 
-cogs_list = ["misc"]
+cogs_list = ["misc", "secret"]
 
 
 class GuildData:
@@ -104,86 +117,165 @@ except Exception:  # pylint: disable=broad-except
     make_new_log(traceback.format_exc())
 
 
-class Debug(commands.Cog):
+class DebugCommands(commands.Cog):
     """デバッグコマンド."""
 
     def __init__(self, bot_: discord.Bot):
         """init."""
         self.bot = bot_
 
-    debug = SlashCommandGroup(
-        name="debug",
-        description="Debug Commands",
-        checks=[commands.is_owner().predicate],
-    )
+    @commands.group()
+    async def debug(self, ctx: ApplicationContext):  # pylint: disable=unused-argument
+        """debugのgroup."""
+        return
 
     @debug.command(
         name="load",
         description="Loads extensions",
+        checks=[commands.is_owner().predicate],
     )
-    async def load(self, ctx: ApplicationContext):
+    async def load(self, ctx: ApplicationContext, cogname=None):
         """デバッグコマンド: Load."""
-        await ctx.respond("Loading extensions...")
+        await ctx.message.delete()
+        if cogname:
+            await ctx.send(f"Loading {cogname}", delete_after=10)
+            try:
+                bot_client.load_extension(f"{cogname}")
+                await ctx.send(f"Successfully loaded {cogname}!", delete_after=10)
+            except ExtensionNotFound:
+                await ctx.send(f"{cogname} is not Found!", delete_after=10)
+            except ExtensionAlreadyLoaded:
+                await ctx.send(f"{cogname} is already loaded!", delete_after=10)
+            except Exception:  # pylint: disable=broad-except
+                make_new_log(traceback.format_exc())
+                await ctx.send(f"Failed loading {cogname}!", delete_after=10)
+            return
+        await ctx.send("Loading extensions...", delete_after=10)
         try:
             for cog in cogs_list:
                 bot_client.load_extension(f"{cog}")
-            await ctx.send("Successfully loaded extensions!")
+            await ctx.send("Successfully loaded extensions!", delete_after=10)
+        except ExtensionNotFound:
+            await ctx.send("Extension Not Found!", delete_after=10)
         except ExtensionAlreadyLoaded:
-            await ctx.send("Extension Already Loaded!")
+            await ctx.send("Extension Already Loaded!", delete_after=10)
         except Exception:  # pylint: disable=broad-except
             make_new_log(traceback.format_exc())
-            await ctx.send("Failed loading extensions!")
+            await ctx.send("Failed loading extensions!", delete_after=10)
         return
 
     @debug.command(
         name="unload",
         description="Unloads extensions",
+        checks=[commands.is_owner().predicate],
     )
-    async def unload(self, ctx: ApplicationContext):
+    async def unload(self, ctx: ApplicationContext, cogname=None):
         """デバッグコマンド: Unload."""
-        await ctx.respond("Unloading extensions...")
+        await ctx.message.delete()
+        if cogname:
+            await ctx.send(f"Unloading {cogname}", delete_after=10)
+            try:
+                bot_client.unload_extension(f"{cogname}")
+                await ctx.send(f"Successfully unloaded {cogname}!", delete_after=10)
+            except ExtensionNotLoaded:
+                await ctx.send(f"{cogname} is not loaded!", delete_after=10)
+            except Exception:  # pylint: disable=broad-except
+                make_new_log(traceback.format_exc())
+                await ctx.send(f"Failed unloading {cogname}!", delete_after=10)
+            return
+        await ctx.send("Unloading extensions...", delete_after=10)
         try:
             for cog in cogs_list:
                 bot_client.unload_extension(f"{cog}")
-            await ctx.send("Successfully unloaded extensions!")
+            await ctx.send("Successfully unloaded extensions!", delete_after=10)
         except ExtensionNotLoaded:
-            await ctx.send("Extension Not Loaded!")
+            await ctx.send("Extension Not Loaded!", delete_after=10)
         except Exception:  # pylint: disable=broad-except
             make_new_log(traceback.format_exc())
-            await ctx.send("Failed unloading extensions!")
+            await ctx.send("Failed unloading extensions!", delete_after=10)
         return
 
     @debug.command(
         name="reload",
         description="Unloads extensions",
+        checks=[commands.is_owner().predicate],
     )
-    async def reload(self, ctx: ApplicationContext):
+    # pylama: ignore=C901
+    async def reload(
+        self, ctx: ApplicationContext, cogname=None
+    ):
         """デバッグコマンド: Reload."""
-        await ctx.respond("Reloading extensions...")
+        await ctx.message.delete()
+        if cogname:
+            await ctx.send(f"Reloading {cogname}", delete_after=10)
+            try:
+                bot_client.reload_extension(f"{cogname}")
+                await ctx.send(f"Successfully reloaded {cogname}!", delete_after=10)
+            except ExtensionAlreadyLoaded:
+                await ctx.send(f"{cogname} is already loaded!", delete_after=10)
+            except ExtensionNotLoaded:
+                await ctx.send(f"{cogname} is not loaded!", delete_after=10)
+            except Exception:  # pylint: disable=broad-except
+                make_new_log(traceback.format_exc())
+                await ctx.send(f"Failed reloading {cogname}!", delete_after=10)
+            return
+        await ctx.send("Reloading extensions...", delete_after=10)
         try:
             for cog in cogs_list:
                 bot_client.reload_extension(f"{cog}")
-            await ctx.send("Successfully reloaded extensions!")
+            await ctx.send("Successfully reloaded extensions!", delete_after=10)
         except ExtensionNotLoaded:
-            await ctx.send("Extension Not Loaded!")
+            await ctx.send("Extension Not Loaded!", delete_after=10)
         except ExtensionAlreadyLoaded:
-            await ctx.send("Extension Already Loaded!")
+            await ctx.send("Extension Already Loaded!", delete_after=10)
         except Exception:  # pylint: disable=broad-except
             make_new_log(traceback.format_exc())
-            await ctx.send("Failed reloading extensions!")
-        return
-
-    @commands.Cog.listener()
-    async def on_application_command_error(self, ctx: ApplicationContext, error: DiscordException):
-        """コマンドエラーの対処."""
-        if isinstance(error, CommandOnCooldown):
-            await ctx.respond("Currently in maintenance, please refrain from using this bot.")
-        elif isinstance(error, NotOwner):
-            await ctx.respond("I don't know how you got here, but you can't use that command!")
-        else:
-            raise error  # Raise other errors so they aren't ignored
+            await ctx.send("Failed reloading extensions!", delete_after=10)
         return
 
 
-bot_client.add_cog(Debug(bot_client))
+@bot_client.event
+async def on_command_error(ctx: ApplicationContext, error: DiscordException):
+    """エラーが発生したときのコマンド."""
+    if isinstance(error, CommandOnCooldown):
+        r_msg, _ = await get_message(
+            message_lang, bot_client.user.id, "cooldown", int(error.retry_after)
+        )
+        await create_embed(ctx, bot_client.user.id, r_msg)
+    elif isinstance(error, NotOwner):
+        await ctx.send(
+            "I don't know how you got here, but you can't use that command!",
+            delete_after=10,
+        )
+        return
+    return
+
+
+@bot_client.event
+async def on_application_command_error(
+    ctx: ApplicationContext, error: DiscordException
+):
+    """コマンドエラーの対処."""
+    if isinstance(error, CommandOnCooldown):
+        r_msg, _ = await get_message(
+            message_lang, bot_client.user.id, "cooldown", int(error.retry_after)
+        )
+    elif isinstance(error, NotOwner):
+        await ctx.send(
+            "I don't know how you got here, but you can't use that command!",
+            delete_after=10,
+        )
+        return
+    else:
+        r_msg, _ = await get_message(
+            message_lang, bot_client.user.id, "unknownerror", error
+        )
+        await create_embed(ctx, bot_client.user.id, r_msg)
+        make_new_log(error)
+        raise error
+    await create_embed(ctx, bot_client.user.id, r_msg)
+    return
+
+
+bot_client.add_cog(DebugCommands(bot_client))
 bot_client.run(get_token(BOT_NAME))

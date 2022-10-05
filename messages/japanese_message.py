@@ -625,7 +625,8 @@ async def get_jp_msg_voice(
             "title": "Error",
             "description": "深刻なエラーが発生しました! このエラーをイルカの住処に報告してください!",
             "em_addons": {
-                "Details": input1,
+                "エラーの名前: ": type(input1).__name__,
+                "エラーの説明: ": str(input1)
             },
         },
     }
