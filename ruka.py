@@ -1,5 +1,5 @@
-"""ルカのメインコード."""
 # coding: utf-8
+"""ルカのメインコード."""
 
 import traceback
 
