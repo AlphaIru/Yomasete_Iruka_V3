@@ -7,20 +7,17 @@ import discord
 from discord import (
     ApplicationContext,
     DiscordException,
+    ExtensionAlreadyLoaded,
     ExtensionNotFound,
     ExtensionNotLoaded,
-    ExtensionAlreadyLoaded,
 )
 from discord.ext import commands
-from discord.ext.commands import NotOwner, CommandOnCooldown
+from discord.ext.commands import CommandOnCooldown, NotOwner
 
-from semi_secret.log import make_new_log  # pylint: disable=import-error
-from semi_secret.get_token import get_token  # pylint: disable=import-error
-
-
-from messages.get_message import get_message  # pylint: disable=import-error
 from discord_misc.embed_creator import create_embed  # pylint: disable=import-error
-
+from messages.get_message import get_message  # pylint: disable=import-error
+from semi_secret.get_token import get_token  # pylint: disable=import-error
+from semi_secret.log import make_new_log  # pylint: disable=import-error
 
 # for debug:
 message_lang = "En"
@@ -34,8 +31,11 @@ BOT_CLIENT_NAME = ""
 
 
 intents = discord.Intents(
-    messages=True, message_content=True,
-    guilds=True, members=True, voice_states=True,
+    messages=True,
+    message_content=True,
+    guilds=True,
+    members=True,
+    voice_states=True,
     guild_reactions=True,
 )
 bot_client = commands.AutoShardedBot(
@@ -198,9 +198,7 @@ class DebugCommands(commands.Cog):
         checks=[commands.is_owner().predicate],
     )
     # pylama: ignore=C901
-    async def reload(
-        self, ctx: ApplicationContext, cogname=None
-    ):
+    async def reload(self, ctx: ApplicationContext, cogname=None):
         """デバッグコマンド: Reload."""
         await ctx.message.delete()
         if cogname:
