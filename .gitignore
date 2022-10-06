@@ -130,3 +130,6 @@ dmypy.json
 
 # Json
 tokens.json
+
+#Visual Studio Code
+.vscode
