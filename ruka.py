@@ -34,11 +34,8 @@ BOT_CLIENT_NAME = ""
 
 
 intents = discord.Intents(
-    messages=True,
-    message_content=True,
-    guilds=True,
-    members=True,
-    voice_states=True,
+    messages=True, message_content=True,
+    guilds=True, members=True, voice_states=True,
     guild_reactions=True,
 )
 bot_client = commands.AutoShardedBot(
