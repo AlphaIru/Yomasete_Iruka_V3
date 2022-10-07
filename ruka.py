@@ -39,15 +39,13 @@ intents = discord.Intents(
     guild_reactions=True,
 )
 bot_client = commands.AutoShardedBot(
-    command_prefix=PREFIX,
-    intents=intents,
-    owner_id=425848318044930048,
+    command_prefix=PREFIX, intents=intents, owner_id=425848318044930048,
 )
 
 cogs_list = ["misc", "secret"]
 
 
-class GuildData: # pylint: disable=too-few-public-methods
+class GuildData:  # pylint: disable=too-few-public-methods
     """各アクティブなギルドのデータを一時保存する."""
 
     def __init__(self):
