@@ -20,7 +20,7 @@ from semi_secret.get_token import get_token  # pylint: disable=import-error
 from semi_secret.log import make_new_log  # pylint: disable=import-error
 
 # for debug:
-message_lang = "En"
+MESSAGE_LANG = "En"
 
 
 BOT_NAME = "Ruka"
@@ -39,15 +39,13 @@ intents = discord.Intents(
     guild_reactions=True,
 )
 bot_client = commands.AutoShardedBot(
-    command_prefix=PREFIX,
-    intents=intents,
-    owner_id=425848318044930048,
+    command_prefix=PREFIX, intents=intents, owner_id=425848318044930048,
 )
 
 cogs_list = ["misc", "secret"]
 
 
-class GuildData:
+class GuildData:  # pylint: disable=too-few-public-methods
     """各アクティブなギルドのデータを一時保存する."""
 
     def __init__(self):
@@ -234,7 +232,7 @@ async def on_command_error(ctx: ApplicationContext, error: DiscordException):
     """エラーが発生したときのコマンド."""
     if isinstance(error, CommandOnCooldown):
         r_msg, _ = await get_message(
-            message_lang, bot_client.user.id, "cooldown", int(error.retry_after)
+            MESSAGE_LANG, bot_client.user.id, "cooldown", int(error.retry_after)
         )
         await create_embed(ctx, bot_client.user.id, r_msg)
     elif isinstance(error, NotOwner):
@@ -253,7 +251,7 @@ async def on_application_command_error(
     """コマンドエラーの対処."""
     if isinstance(error, CommandOnCooldown):
         r_msg, _ = await get_message(
-            message_lang, bot_client.user.id, "cooldown", int(error.retry_after)
+            MESSAGE_LANG, bot_client.user.id, "cooldown", int(error.retry_after)
         )
     elif isinstance(error, NotOwner):
         await ctx.send(
@@ -263,7 +261,7 @@ async def on_application_command_error(
         return
     else:
         r_msg, _ = await get_message(
-            message_lang, bot_client.user.id, "unknownerror", error
+            MESSAGE_LANG, bot_client.user.id, "unknownerror", error
         )
         await create_embed(ctx, bot_client.user.id, r_msg)
         make_new_log(error)
