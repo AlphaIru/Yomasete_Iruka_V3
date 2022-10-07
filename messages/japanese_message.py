@@ -1,5 +1,5 @@
-"""日本語の文章などを取得."""
 # coding: utf-8
+"""日本語の文章などを取得."""
 # pylint: disable=line-too-long
 # pylama: ignore=E501
 

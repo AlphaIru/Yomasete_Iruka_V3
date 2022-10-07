@@ -1,5 +1,5 @@
-"""Help系のコード."""
 # coding: utf-8
+"""Help系のコード."""
 
 import time
 import discord

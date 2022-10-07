@@ -1,3 +1,4 @@
+# coding: utf-8
 """Secret系のコード."""
 
 import discord

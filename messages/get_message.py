@@ -1,5 +1,6 @@
-"""メッセージを返信するための関数."""
 # coding: utf-8
+"""メッセージを返信するための関数."""
+
 
 from .japanese_message import get_jp_msg_voice
 from .english_message import get_en_msg_voice
