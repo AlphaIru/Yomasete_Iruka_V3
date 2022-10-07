@@ -12,7 +12,7 @@ from discord_misc.embed_creator import create_embed  # pylint: disable=import-er
 
 
 # for debug:
-message_lang = "En"
+MESSAGE_LANG = "En"
 
 
 class SecretCommands(commands.Cog, name="Secret"):
@@ -39,7 +39,7 @@ class SecretCommands(commands.Cog, name="Secret"):
         """クレジットの表示."""
         if ctx.author.bot:
             return
-        r_msg, _ = await get_message(message_lang, self.bot.user.id, "credit")
+        r_msg, _ = await get_message(MESSAGE_LANG, self.bot.user.id, "credit")
         await ctx.channel.send(file=discord.File("/home/ubuntu/Yomasete_Iruka.jpeg"))
         await create_embed(ctx, self.bot.user.id, r_msg)
         return
