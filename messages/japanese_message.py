@@ -617,17 +617,18 @@ async def get_jp_msg_voice(
             "title": "Whitelist",
             "description": "ホワイトリストに登録されていません!そのコマンドは無視されます!",
         },
-        "botbored": {
+        "noprivateerror": {
             "title": "Error",
-            "description": f"{bot_name}は今、暇そうにしています!",
+            "description": "ここはDMです!このコマンドはここでは使えません!",
         },
         "unknownerror": {
             "title": "Error",
             "description": "深刻なエラーが発生しました! このエラーをイルカの住処に報告してください!",
-            "em_addons": {
-                "エラーの名前: ": type(input1).__name__,
-                "エラーの説明: ": str(input1)
-            },
+            "em_addons": {"エラーの名前: ": type(input1).__name__, "エラーの説明: ": str(input1)},
+        },
+        "botbored": {
+            "title": "Error",
+            "description": f"{bot_name}は今、暇そうにしています!",
         },
     }
 
@@ -730,8 +731,9 @@ async def get_jp_msg_voice(
         "notadmin": "管理者権限がないよ!シランガナ!",
         "inblacklist": "ブラックリストに登録されてるよ!シランガナ!",
         "notinwhitelist": "ホワイトリストに登録されてないよ!シランガナ!",
-        "botbored": "つまんないよ!シランガナ!",
+        "noprivatemessage": "ここはDMだよ!そのコマンドはここでは使えないよ!シランガナ!",
         "unknownerror": "このエラーをすぐに報告してね!",
+        "botbored": "つまんないよ!シランガナ!",
     }
 
     jp_voice_ruka = {
@@ -833,8 +835,9 @@ async def get_jp_msg_voice(
         "notadmin": "か、管理者、け、権限が、あ、ありません!",
         "inblacklist": "ぶ、ブラック、り、リストに、と、登録、さ、されて、い、います!",
         "notinwhitelist": "ほ、ホワイト、り、リストに、と、登録、さ、されて、い、いません!",
-        "botbored": "す、少し、あ、遊び、た、たいです!",
+        "noprivatemessage": "こ、ここはDMです!こ、このコマンドは、ここでは使えません!",
         "unknownerror": "こ、このエラーをすぐに、ほ、報告してください!",
+        "botbored": "す、少し、あ、遊び、た、たいです!",
     }
 
     jp_voice_dolun = jp_voice_iru

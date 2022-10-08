@@ -12,7 +12,7 @@ from discord import (
     ExtensionNotLoaded,
 )
 from discord.ext import commands
-from discord.ext.commands import CommandOnCooldown, NotOwner
+from discord.ext.commands import NoPrivateMessage, CommandOnCooldown, NotOwner
 
 from discord_misc.embed_creator import create_embed  # pylint: disable=import-error
 from messages.get_message import get_message  # pylint: disable=import-error
@@ -42,7 +42,7 @@ bot_client = commands.AutoShardedBot(
     command_prefix=PREFIX, intents=intents, owner_id=425848318044930048,
 )
 
-cogs_list = ["misc", "secret"]
+cogs_list = ["misc", "secret", "settings"]
 
 
 class GuildData:  # pylint: disable=too-few-public-methods
@@ -235,6 +235,10 @@ async def on_command_error(ctx: ApplicationContext, error: DiscordException):
             MESSAGE_LANG, bot_client.user.id, "cooldown", int(error.retry_after)
         )
         await create_embed(ctx, bot_client.user.id, r_msg)
+    elif isinstance(error, NoPrivateMessage):
+        r_msg, _ = await get_message(
+            MESSAGE_LANG, bot_client.user.id, "noprivateerror", error
+        )
     elif isinstance(error, NotOwner):
         await ctx.send(
             "I don't know how you got here, but you can't use that command!",
@@ -252,6 +256,10 @@ async def on_application_command_error(
     if isinstance(error, CommandOnCooldown):
         r_msg, _ = await get_message(
             MESSAGE_LANG, bot_client.user.id, "cooldown", int(error.retry_after)
+        )
+    elif isinstance(error, NoPrivateMessage):
+        r_msg, _ = await get_message(
+            MESSAGE_LANG, bot_client.user.id, "noprivateerror", error
         )
     elif isinstance(error, NotOwner):
         await ctx.send(

@@ -402,32 +402,25 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
             "em_addons": {
                 0: {"Warning": "-------------------------------------\n"},
                 1: {
-                    "**・Duplicates (Outside the file)**":
-                    "There were duplicated words inbetween the imported file and the pronunciation dictionary, so the pronunciation from the file has been overwritten onto the pronunciation dictionary!",
+                    "**・Duplicates (Outside the file)**": "There were duplicated words inbetween the imported file and the pronunciation dictionary, so the pronunciation from the file has been overwritten onto the pronunciation dictionary!",
                 },
                 2: {
-                    "**・Duplicates (Inside the file)**":
-                    "There were duplicated words in the imported file, so the pronuncation closer to start of the file are prioritized to be saved!",
+                    "**・Duplicates (Inside the file)**": "There were duplicated words in the imported file, so the pronuncation closer to start of the file are prioritized to be saved!",
                 },
                 3: {
-                    "**・Duplicates (Inside)**":
-                    "Some of the imported words and its pronunciation were same, so those words are not added!",
+                    "**・Duplicates (Inside)**": "Some of the imported words and its pronunciation were same, so those words are not added!",
                 },
                 4: {
-                    "**・Length of the word**":
-                    "Some words were too long to be added, so the part of the end of word might been cut off!",
+                    "**・Length of the word**": "Some words were too long to be added, so the part of the end of word might been cut off!",
                 },
                 5: {
-                    "**・No Pronuncition**":
-                    "There were some words without a pronunciation in the file, so those words are not added!",
+                    "**・No Pronuncition**": "There were some words without a pronunciation in the file, so those words are not added!",
                 },
                 6: {
-                    "**・Number of the words in dictionary**":
-                    "There were too many words in the pronunciation dictionary already; the words closer to the start of the file has been prioritized to be saved!",
+                    "**・Number of the words in dictionary**": "There were too many words in the pronunciation dictionary already; the words closer to the start of the file has been prioritized to be saved!",
                 },
                 7: {
-                    "**・Type Error**":
-                    "Some of the words in the file were not in string format,so those words are not added!",
+                    "**・Type Error**": "Some of the words in the file were not in string format,so those words are not added!",
                 },
             },
         },
@@ -453,7 +446,7 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
                 # "**Finta**": r"https://discord.com/api/oauth2/authorize?client_id=906641635092332586&permissions=36826448&scope=bot%20applications.commands",
                 # "**Cete**": r"https://discord.com/api/oauth2/authorize?client_id=906643085264572426&permissions=36826448&scope=bot%20applications.commands",
                 "**Official Discord Server**": "https://discord.gg/PBJ6969J2S",
-            }
+            },
         },
         "addchannel": {
             "title": "Add Channel",
@@ -637,18 +630,22 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
             "title": "Whitelist",
             "description": "You are not in the whitelist! That command will be ignored!",
         },
-        "botbored": {
-            "title": "Bored",
-            "description": f"{bot_name} is bored!",
+        "noprivateerror": {
+            "title": "Error",
+            "description": "You cannot use this command in the direct/private message!",
         },
         "unknownerror": {
             "title": "Error",
             "description": "Serious error just happened! Please report this bug to the pod immediately!",
             "em_addons": {
                 "Name of the Error: ": type(input1).__name__,
-                "Description of the Error: ": str(input1)
+                "Description of the Error: ": str(input1),
             },
-        }
+        },
+        "botbored": {
+            "title": "Bored",
+            "description": f"{bot_name} is bored!",
+        },
     }
 
     en_voice_iru = {
@@ -750,8 +747,9 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "notadmin": "You are not an admin!",
         "inblacklist": "You are in the blacklist!",
         "notinwhitelist": "You are not in the whitelist!",
+        "noprivateerror": "You cannot use this command in direct message!",
+        "unknownerror": "Please report the bug immediately!",
         "botbored": "I am bored!",
-        "unknownerror": "Please report the bug immediately!"
     }
 
     en_voice_ruka = {
@@ -853,8 +851,9 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "notadmin": "You are not an admin!",
         "inblacklist": "You are in the blacklist!",
         "notinwhitelist": "You are not in the whitelist!",
-        "botbored": "I am bored!",
+        "noprivateerror": "You cannot use this command in direct message!",
         "unknownerror": "please report this bug immediately!",
+        "botbored": "I am bored!",
     }
 
     en_voice_dolun = en_voice_iru

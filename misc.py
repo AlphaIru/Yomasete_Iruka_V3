@@ -3,10 +3,10 @@
 
 import time
 import discord
-from discord import ApplicationContext, DiscordException
+from discord import ApplicationContext
 from discord.commands import SlashCommandGroup
 from discord.ext import commands
-from discord.ext.commands import cooldown, CommandOnCooldown
+from discord.ext.commands import cooldown
 from discord.ext.commands.cooldowns import BucketType
 
 
@@ -100,22 +100,6 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
         if ctx.author.bot:
             return
         r_msg, _ = await get_message(MESSAGE_LANG, self.bot.user.id, "voicelist")
-        await create_embed(ctx, self.bot.user.id, r_msg)
-        return
-
-    @commands.Cog.listener()
-    async def on_application_command_error(
-        self, ctx: ApplicationContext, error: DiscordException
-    ):
-        """エラーが発生したときのコマンド."""
-        if isinstance(error, CommandOnCooldown):
-            r_msg, _ = await get_message(
-                MESSAGE_LANG, self.bot.user.id, "cooldown", int(error.retry_after)
-            )
-        else:
-            r_msg, _ = await get_message(
-                MESSAGE_LANG, self.bot.user.id, "unknownerror", error
-            )
         await create_embed(ctx, self.bot.user.id, r_msg)
         return
 
