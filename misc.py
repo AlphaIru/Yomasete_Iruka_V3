@@ -92,7 +92,6 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
         return
 
     @documentations.command(
-        name="voicelist",
         description=slash_messages["voicelist"]["main"],
     )
     @cooldown(2, 60, BucketType.user)
