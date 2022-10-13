@@ -1,6 +1,7 @@
 # coding: utf-8
 """ルカのメインコード."""
 
+import asyncio
 import traceback
 
 import discord
@@ -18,6 +19,7 @@ from discord_misc.embed_creator import create_embed  # pylint: disable=import-er
 from messages.get_message import get_message  # pylint: disable=import-error
 from semi_secret.get_token import get_token  # pylint: disable=import-error
 from semi_secret.log import make_new_log  # pylint: disable=import-error
+from database.setup_database import create_table  # pylint: disable=import-error
 
 # for debug:
 MESSAGE_LANG = "En"
@@ -39,7 +41,9 @@ intents = discord.Intents(
     guild_reactions=True,
 )
 bot_client = commands.AutoShardedBot(
-    command_prefix=PREFIX, intents=intents, owner_id=425848318044930048,
+    command_prefix=PREFIX,
+    intents=intents,
+    owner_id=425848318044930048,
 )
 
 cogs_list = ["misc", "secret", "settings"]
@@ -106,10 +110,11 @@ async def on_shard_resume(shard_id):
 
 
 try:
+    asyncio.run(create_table())
     for cog_file in cogs_list:
         bot_client.load_extension(f"{cog_file}")
 except Exception:  # pylint: disable=broad-except
-    make_new_log(traceback.format_exc())
+    asyncio.run(make_new_log(traceback.format_exc()))
 
 
 class DebugCommands(commands.Cog):
@@ -142,7 +147,7 @@ class DebugCommands(commands.Cog):
             except ExtensionAlreadyLoaded:
                 await ctx.send(f"{cogname} is already loaded!", delete_after=10)
             except Exception:  # pylint: disable=broad-except
-                make_new_log(traceback.format_exc())
+                await make_new_log(traceback.format_exc())
                 await ctx.send(f"Failed loading {cogname}!", delete_after=10)
             return
         await ctx.send("Loading extensions...", delete_after=10)
@@ -155,7 +160,7 @@ class DebugCommands(commands.Cog):
         except ExtensionAlreadyLoaded:
             await ctx.send("Extension Already Loaded!", delete_after=10)
         except Exception:  # pylint: disable=broad-except
-            make_new_log(traceback.format_exc())
+            await make_new_log(traceback.format_exc())
             await ctx.send("Failed loading extensions!", delete_after=10)
         return
 
@@ -175,7 +180,7 @@ class DebugCommands(commands.Cog):
             except ExtensionNotLoaded:
                 await ctx.send(f"{cogname} is not loaded!", delete_after=10)
             except Exception:  # pylint: disable=broad-except
-                make_new_log(traceback.format_exc())
+                await make_new_log(traceback.format_exc())
                 await ctx.send(f"Failed unloading {cogname}!", delete_after=10)
             return
         await ctx.send("Unloading extensions...", delete_after=10)
@@ -186,7 +191,7 @@ class DebugCommands(commands.Cog):
         except ExtensionNotLoaded:
             await ctx.send("Extension Not Loaded!", delete_after=10)
         except Exception:  # pylint: disable=broad-except
-            make_new_log(traceback.format_exc())
+            await make_new_log(traceback.format_exc())
             await ctx.send("Failed unloading extensions!", delete_after=10)
         return
 
@@ -209,7 +214,7 @@ class DebugCommands(commands.Cog):
             except ExtensionNotLoaded:
                 await ctx.send(f"{cogname} is not loaded!", delete_after=10)
             except Exception:  # pylint: disable=broad-except
-                make_new_log(traceback.format_exc())
+                await make_new_log(traceback.format_exc())
                 await ctx.send(f"Failed reloading {cogname}!", delete_after=10)
             return
         await ctx.send("Reloading extensions...", delete_after=10)
@@ -222,7 +227,7 @@ class DebugCommands(commands.Cog):
         except ExtensionAlreadyLoaded:
             await ctx.send("Extension Already Loaded!", delete_after=10)
         except Exception:  # pylint: disable=broad-except
-            make_new_log(traceback.format_exc())
+            await make_new_log(traceback.format_exc())
             await ctx.send("Failed reloading extensions!", delete_after=10)
         return
 
@@ -272,7 +277,7 @@ async def on_application_command_error(
             MESSAGE_LANG, bot_client.user.id, "unknownerror", error
         )
         await create_embed(ctx, bot_client.user.id, r_msg)
-        make_new_log(error)
+        await make_new_log(error)
         raise error
     await create_embed(ctx, bot_client.user.id, r_msg)
     return

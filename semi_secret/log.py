@@ -5,7 +5,7 @@ from datetime import datetime
 from pytz import timezone
 
 
-def make_new_log(log_data):
+async def make_new_log(log_data):
     """ログを作成する関数."""
     time = str(datetime.now(timezone("America/Los_Angeles")))
 
@@ -14,3 +14,5 @@ def make_new_log(log_data):
         log_file.write("\n")
         log_file.write(str(log_data))
         log_file.write("\n" + "\n")
+
+    return
