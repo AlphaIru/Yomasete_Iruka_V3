@@ -1,0 +1,3 @@
+2022-10-14 18:40:17.677527-07:00
+Application Command raised an exception: OperationalError: table settings has 5 columns but 4 values were supplied
+

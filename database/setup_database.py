@@ -20,10 +20,11 @@ async def create_table():
 
     while True:
         create_guild_table = "CREATE TABLE IF NOT EXISTS settings \
-            (id INTEGER PRIMARY KEY, read_name INTEGER, read_bot INTEGER, read_mention INTEGER);"
+            (id INTEGER PRIMARY KEY, read_name INTEGER, read_bot INTEGER, read_mention INTEGER, \
+            read_other_bot INTEGER);"
         guild_cursor.execute(create_guild_table)
 
-        if len(guild_cursor.execute("SELECT * FROM settings;").description) == 4:
+        if len(guild_cursor.execute("SELECT * FROM settings;").description) == 5:
             break
         else:
             guild_con.close()
