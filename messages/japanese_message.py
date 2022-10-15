@@ -116,13 +116,19 @@ async def get_jp_msg_voice(
             "url": "https://gist.github.com/AlphaIru/29971af478de6a160d94571fc581db38",
             "description": f"{bot_name}の説明書です!\n\nhttps://gist.github.com/AlphaIru/29971af478de6a160d94571fc581db38\n\n(もしくはタイトルをクリックしてください)",
         },
-        "username_F": {"title": "Username", "description": "これからはメッセージの作者を読み上げません!"},
-        "username_T": {"title": "Username", "description": "これからはメッセージの作者を読み上げます!"},
-        "botyomiage_F": {
+        "readname_F": {
+            "title": "Read Username",
+            "description": "これからはメッセージの作者を読み上げません!",
+        },
+        "readname_T": {
+            "title": "Read Username",
+            "description": "これからはメッセージの作者を読み上げます!",
+        },
+        "readbot_F": {
             "title": "Read Bot",
             "description": f"これからは{bot_name}が各コマンドの文章やコメントを読み上げません!",
         },
-        "botyomiage_T": {
+        "readbot_T": {
             "title": "Read Bot",
             "description": f"これからは{bot_name}が各コマンドの文章やコメント読み上げます!",
         },
@@ -634,10 +640,10 @@ async def get_jp_msg_voice(
 
     jp_voice_iru = {
         "help": "僕達、読ませてイルカの説明書に飛ぶリンクだよ!ここでコマンドとか確認してね～!",
-        "username_F": "これからはメッセージの作者を読み上げないよ～!",
-        "username_T": "これからはメッセージの作者を読み上げるよ～!",
-        "botyomiage_F": "これからは僕の文章を読み上げないよ～!(悲しいなあ…)",
-        "botyomiage_T": "これからは僕の文章を読み上げるよ～!(ありがとう!)",
+        "readname_F": "これからはメッセージの作者を読み上げないよ～!",
+        "readname_T": "これからはメッセージの作者を読み上げるよ～!",
+        "readbot_F": "これからは僕の文章を読み上げないよ～!(悲しいなあ…)",
+        "readbot_T": "これからは僕の文章を読み上げるよ～!(ありがとう!)",
         "mention_F": "これからはメンションを読み上げないよ～!",
         "mention_T": "これからはメンションを読み上げるよ～!",
         "readotherbot_F": "これからは僕以外のbotのメッセージを読み上げないよ～!",
@@ -738,10 +744,10 @@ async def get_jp_msg_voice(
 
     jp_voice_ruka = {
         "help": "わ、私達の…、よ、読ませてイルカの…、せ、説明書に…、飛ぶ…、リンクです。こ、ここで確認を…、お、お願いします！",
-        "username_F": "こ、これからは…、メッセージの…、さ、作者さんを…、よ、読み上げ…、ません!",
-        "username_T": "こ、これからは…、メッセージの…、さ、作者さんを…、よ、読み上げ…、ます!",
-        "botyomiage_F": "こ、これからは…、私の文章を…、よ、読み上げ…、ません!(ほ…)",
-        "botyomiage_T": "こ、これからは…、私の文章を…、よ、読み上げ…、ます!(よ、よろしく…、お願いします!)",
+        "readname_F": "こ、これからは…、メッセージの…、さ、作者さんを…、よ、読み上げ…、ません!",
+        "readname_T": "こ、これからは…、メッセージの…、さ、作者さんを…、よ、読み上げ…、ます!",
+        "readbot_F": "こ、これからは…、私の文章を…、よ、読み上げ…、ません!(ほ…)",
+        "readbot_T": "こ、これからは…、私の文章を…、よ、読み上げ…、ます!(よ、よろしく…、お願いします!)",
         "mention_F": "こ、これからは…、メンションを…、よ、読み上げ…、ません!",
         "mention_T": "こ、これからは…、メンションを…、よ、読み上げ…、ます!",
         "readotherbot_F": "こ、これからは…、私以外の…、ボットのメッセージを…、よ、読み上げ…、ません!",

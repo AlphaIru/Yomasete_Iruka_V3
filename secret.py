@@ -22,6 +22,7 @@ class SecretCommands(commands.Cog, name="Secret"):
     def __init__(self, bot: discord.Bot):
         """SecretCommandsのイニシャライズ."""
         self.bot = bot
+        return
 
     @commands.command(
         name="credit",
@@ -49,8 +50,10 @@ class SecretCommands(commands.Cog, name="Secret"):
 def setup(bot):
     """このclassを追加."""
     bot.add_cog(SecretCommands(bot))
+    return
 
 
 def teardown(bot):
     """このclassを排除."""
     bot.remove_cog(SecretCommands(bot))
+    return

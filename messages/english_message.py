@@ -113,19 +113,19 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
             "url": "https://gist.github.com/AlphaIru/29971af478de6a160d94571fc581db38",
             "description": f"This is the link to {bot_name}'s manual!\n\nhttps://gist.github.com/AlphaIru/29971af478de6a160d94571fc581db38\n\n(Or click the title to the page)",
         },
-        "username_F": {
-            "title": "Username",
+        "readname_F": {
+            "title": "Read Username",
             "description": f"Upon next sentences, {bot_name} will not read out each message author's username!",
         },
-        "username_T": {
-            "title": "Username",
+        "readname_T": {
+            "title": "Read Username",
             "description": f"Upon next sentences, {bot_name} will read out each message author's username!",
         },
-        "botyomiage_F": {
+        "readbot_F": {
             "title": "Read Bot",
             "description": f"Upon next, {bot_name} will not read out each command's messages or comments!",
         },
-        "botyomiage_T": {
+        "readbot_T": {
             "title": "Read Bot",
             "description": f"Upon next, {bot_name} will read out each command's messages or comments!",
         },
@@ -242,7 +242,7 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
             "title": f"{input1}'s Settings",
             "description": f"{input1}'s settings are set in these settings!",
             "em_addons": {
-                0: "Read Username",
+                0: "Read readname",
                 1: f"Read {bot_name}'s Messages",
                 2: "Word limit",
                 3: "Read Emojis",
@@ -650,10 +650,10 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
 
     en_voice_iru = {
         "help": "This is the link to the us, Yomasete Iruka, bot's manual, please check it out for here for commands!",
-        "username_F": "Upon next sentences, I will not read out the author of each messages!",
-        "username_T": "Upon next sentences, I will read out the author of each messages!",
-        "botyomiage_F": "Upon next, I will not read out messages or comments! (I am sad...)",
-        "botyomiage_T": "Upon next, I will read out messages or comments! (Thank you!)",
+        "readname_F": "Upon next sentences, I will not read out the author of each messages!",
+        "readname_T": "Upon next sentences, I will read out the author of each messages!",
+        "readbot_F": "Upon next, I will not read out messages or comments! (I am sad...)",
+        "readbot_T": "Upon next, I will read out messages or comments! (Thank you!)",
         "mention_F": "Upon next, I will not read out mentions!",
         "mention_T": "Upon next, I will read out mentions!",
         "readotherbot_F": "Upon next, I will not read out other bots' messages!",
@@ -754,10 +754,10 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
 
     en_voice_ruka = {
         "help": "Th, This is, is, the, li, link, to, to, the, do, documents, fo, for, Yo, Yoma, Yomasete, I, Iruka's, ma, manual! P, Please, ch, check, it, it, out!",
-        "username_F": "Upo, Upon, ne, next, sen, sentences, I, I, wi, will, no, not, re, read, out, out the, the, au,author, of, of, each, mee, messages!",
-        "username_T": "Upo, Upon, ne, next, sen, sentences, I, I, wi, will, re, read, out, out the, the, au, author, of, of, each, mee, messages!",
-        "botyomiage_F": "Upo, Upon, ne, next, I, I, wi, will, no, not, re, read, out, out m, my, mee, messages! (Oh god, thank you...)",
-        "botyomiage_T": "Upo, Upon, ne, next, I, I, wi, will, re, read, out, out m, my, mee, messages! (N, nice, to, to, meet, you, you!)",
+        "readname_F": "Upo, Upon, ne, next, sen, sentences, I, I, wi, will, no, not, re, read, out, out the, the, au,author, of, of, each, mee, messages!",
+        "readname_T": "Upo, Upon, ne, next, sen, sentences, I, I, wi, will, re, read, out, out the, the, au, author, of, of, each, mee, messages!",
+        "readbot_F": "Upo, Upon, ne, next, I, I, wi, will, no, not, re, read, out, out m, my, mee, messages! (Oh god, thank you...)",
+        "readbot_T": "Upo, Upon, ne, next, I, I, wi, will, re, read, out, out m, my, mee, messages! (N, nice, to, to, meet, you, you!)",
         "mention_F": "Upo, Upon, ne, next, I, I, wi, will, no, not, re, read, out, out, mee, mentions!",
         "mention_T": "Upo, Upon, ne, next, I, I, wi, will, re, read, out, out, mee, mentions!",
         "readotherbot_F": "Upon next, I will not read out other bots' messages!",

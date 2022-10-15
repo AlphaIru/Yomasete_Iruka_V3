@@ -24,6 +24,7 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
     def __init__(self, bot: discord.Bot):
         """MiscCommandsのイニシャライズ."""
         self.bot = bot
+        return
 
     miscellaneous = SlashCommandGroup(
         name="miscellaneous",
@@ -107,8 +108,10 @@ class MiscCommands(commands.Cog, name="Miscellaneous"):
 def setup(bot):
     """このclassを追加."""
     bot.add_cog(MiscCommands(bot))
+    return
 
 
 def teardown(bot):
     """このclassを排除."""
     bot.remove_cog(MiscCommands(bot))
+    return

@@ -12,13 +12,16 @@ class BlacklistCommands(commands.Cog, name="Blacklist"):
     def __init__(self, bot: discord.Bot):
         """BlacklistCommandsのイニシャライズ."""
         self.bot = bot
+        return
 
 
 def setup(bot):
     """このclassを追加."""
     bot.add_cog(BlacklistCommands(bot))
+    return
 
 
 def teardown(bot):
     """このclassを排除."""
     bot.remove_cog(BlacklistCommands(bot))
+    return

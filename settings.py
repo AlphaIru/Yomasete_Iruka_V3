@@ -44,7 +44,7 @@ async def commit_guild_settings(setting_name: str, guild_id: int, selected_bool:
     )
 
     if not guild_cursor.fetchall():
-        add_settings = "INSERT INTO settings VALUES (?, 0, 0);"
+        add_settings = "INSERT INTO settings VALUES (?, 0, 0, 0);"
         guild_cursor.execute(add_settings, (guild_id,))
 
     # ↓ 入れてるのはこのファイルにハードコードされた「設定科目名」だからInjectionの心配は一応なし。
@@ -67,18 +67,24 @@ class SettingsCommands(commands.Cog, name="Settings"):
     def __init__(self, bot: discord.Bot):
         """SettingCommandsのイニシャライズ."""
         self.bot = bot
+        return
 
     settings = SlashCommandGroup(
         name="settings",
         description="Commands to manipulate settings!",
     )
 
-    @settings.command(
+    read_out = settings.create_subgroup(
+        name="read_out",
+        description="Settings related to reading out messages.",
+    )
+
+    @read_out.command(
         name="name",
         description=slash_messages["name"]["main"],
     )
     @option(
-        name="read_name",
+        name="boolean",
         description=slash_messages["name"]["read_name"],
     )
     @guild_only()
@@ -86,19 +92,72 @@ class SettingsCommands(commands.Cog, name="Settings"):
     async def name(
         self,
         ctx: ApplicationContext,
-        read_name: bool,
+        boolean: bool,
     ):
         """メッセージの作者を読み上げるかどうかの設定."""
-        await commit_guild_settings("read_name", ctx.guild.id, read_name)
-        await ctx.send("Done!")
+        if ctx.author.bot:
+            return
+        await commit_guild_settings("read_name", ctx.guild.id, boolean)
+        msg_name = "readname_T" if boolean else "readname_F"
+        r_msg, _ = await get_message(MESSAGE_LANG, self.bot.user.id, msg_name)
+        await create_embed(ctx, self.bot.user.id, r_msg)
+        return
+
+    @read_out.command(
+        name="dolphin_messages",
+        description=slash_messages["readbot"]["main"],
+    )
+    @option(
+        name="boolean",
+        description=slash_messages["readbot"]["read_bot"],
+    )
+    @guild_only()
+    @cooldown(2, 60, BucketType.user)
+    async def readbot(
+        self,
+        ctx: discord.ApplicationContext,
+        boolean: bool,
+    ):
+        """メッセージの作者を読み上げるかどうかの設定."""
+        if ctx.author.bot:
+            return
+        await commit_guild_settings("read_bot", ctx.guild.id, boolean)
+        msg_name = "readbot_T" if boolean else "readbot_F"
+        r_msg, _ = await get_message(MESSAGE_LANG, self.bot.user.id, msg_name)
+        await create_embed(ctx, self.bot.user.id, r_msg)
+        return
+
+    @read_out.command(
+        name="mention",
+        description=slash_messages["mention"]["main"],
+    )
+    @option(
+        name="boolean",
+        description=slash_messages["mention"]["read_mention"],
+    )
+    @cooldown(2, 60, BucketType.user)
+    async def mention(
+        self,
+        ctx: discord.ApplicationContext,
+        boolean: bool,
+    ):
+        """メンションの読み上げの設定."""
+        if ctx.author.bot:
+            return
+        await commit_guild_settings("read_mention", ctx.guild.id, boolean)
+        msg_name = "mention_T" if boolean else "mention_F"
+        r_msg, _ = await get_message(MESSAGE_LANG, self.bot.user.id, msg_name)
+        await create_embed(ctx, self.bot.user.id, r_msg)
         return
 
 
 def setup(bot):
     """このclassを追加."""
     bot.add_cog(SettingsCommands(bot))
+    return
 
 
 def teardown(bot):
     """このclassを排除."""
     bot.remove_cog(SettingsCommands(bot))
+    return
