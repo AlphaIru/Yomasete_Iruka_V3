@@ -42,9 +42,9 @@ slash_messages = {
         "main": "Change the settings to read out the activities in the voice chat!",
         "user_join": "Select if the dolphin should read out the activities of each users!",
         "join_leave": "Select if the dolphin should read out each users joining in and leaving out of the voicechat!",
-        "guild_dea": "Select if the dolphin should read out each users being guild_deafen or not!",
+        "guild_deaf": "Select if the dolphin should read out each users being guild_deafen or not!",
         "guild_mute": "Select if the dolphin should read out each users being guild_muted or not!",
-        "self_dea": "Select if the dolphin should read out each users are deafening themselves or not!",
+        "self_deaf": "Select if the dolphin should read out each users are deafening themselves or not!",
         "self_mute": "Select if the dolphin should read out each users are muting themselves or not!",
         "self_stream": "Select if the dolphin should read out each users are streaming or not!",
         "self_video": "Select if the dolphin should read out each users are video streaming or not!",
@@ -53,7 +53,7 @@ slash_messages = {
         "main": "This settings will change between blacklist and whitelist!",
         "switch_blacklist": "Select if the dolphin should treat the list as the blacklist or whitelist!",
     },
-    "readnonvcusers": {
+    "readotherusers": {
         "main": "Change the settings to read out the non-VC users' messages!",
         "read_non_vc_users_message": "Select if the dolphin should read out the non-VC users' messages!",
     },
@@ -83,7 +83,11 @@ slash_messages = {
     },
     "length": {
         "main": "Changes the limit that the dolphin should read out the messages!",
-        "limit": "Select the limit that the dolphin should read out the messages!",
+        "limit": "Select the limit that the dolphin should read out the messages! (200 to 2000: recommended at 350.)",
+    },
+    "afktimeout": {
+        "main": "Changes the time limit when the bot leaves the voice chat automatically on when inactive!",
+        "limit": "Select the time limit (0 to 6000: recommended at 3000.)",
     },
     "deleteallwords": {
         "main": "This will delete all words in the server's pronunciation dictionary!",

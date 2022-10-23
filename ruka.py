@@ -13,7 +13,16 @@ from discord import (
     ExtensionNotLoaded,
 )
 from discord.ext import commands
-from discord.ext.commands import NoPrivateMessage, CommandOnCooldown, NotOwner
+from discord.ext.commands import (
+    NoPrivateMessage,
+    CommandOnCooldown,
+    NotOwner,
+    UserInputError,
+    MissingPermissions,
+    BotMissingPermissions,
+    MissingRequiredArgument,
+    MessageNotFound
+)
 
 from discord_misc.embed_creator import create_embed  # pylint: disable=import-error
 from messages.get_message import get_message  # pylint: disable=import-error
@@ -244,12 +253,34 @@ async def on_command_error(ctx: ApplicationContext, error: DiscordException):
         r_msg, _ = await get_message(
             MESSAGE_LANG, bot_client.user.id, "noprivateerror", error
         )
+    elif isinstance(error, MissingPermissions):
+        mis_p = ""
+        for perm in error.missing_permissions:
+            mis_p += f"・{perm}\n"
+        r_msg, _ = await get_message(
+            MESSAGE_LANG, bot_client.user.id, "missingpermissions", mis_p
+        )
+    elif isinstance(error, BotMissingPermissions):
+        mis_p = ""
+        for perm in error.missing_permissions:
+            mis_p += f"・{perm}\n"
+        r_msg, _ = await get_message(
+            MESSAGE_LANG, bot_client.user.id, "botmissingpermissions", mis_p
+        )
+    elif isinstance(error, UserInputError):
+        r_msg, _ = await get_message(MESSAGE_LANG, bot_client.user.id, "userinputerror")
+    elif isinstance(error, MissingRequiredArgument):
+        r_msg, _ = await get_message(
+            MESSAGE_LANG, bot_client.user.id, "missingarguments"
+        )
     elif isinstance(error, NotOwner):
         await ctx.send(
             "I don't know how you got here, but you can't use that command!",
             delete_after=10,
         )
         return
+    elif isinstance(error, MessageNotFound):
+        pass
     return
 
 
@@ -266,12 +297,28 @@ async def on_application_command_error(
         r_msg, _ = await get_message(
             MESSAGE_LANG, bot_client.user.id, "noprivateerror", error
         )
+    elif isinstance(error, MissingPermissions):
+        mis_p = ""
+        for perm in error.missing_permissions:
+            mis_p += f"・{perm}\n"
+        r_msg, _ = await get_message(
+            MESSAGE_LANG, bot_client.user.id, "missingpermissions", mis_p
+        )
+    elif isinstance(error, BotMissingPermissions):
+        mis_p = ""
+        for perm in error.missing_permissions:
+            mis_p += f"・{perm}\n"
+        r_msg, _ = await get_message(
+            MESSAGE_LANG, bot_client.user.id, "botmissingpermissions", mis_p
+        )
     elif isinstance(error, NotOwner):
         await ctx.send(
             "I don't know how you got here, but you can't use that command!",
             delete_after=10,
         )
         return
+    elif isinstance(error, MessageNotFound):
+        pass
     else:
         r_msg, _ = await get_message(
             MESSAGE_LANG, bot_client.user.id, "unknownerror", error

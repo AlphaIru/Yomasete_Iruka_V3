@@ -21,10 +21,18 @@ async def create_table():
     while True:
         create_guild_table = "CREATE TABLE IF NOT EXISTS settings \
             (id INTEGER PRIMARY KEY, read_name INTEGER, read_bot INTEGER, read_mention INTEGER, \
-            read_other_bot INTEGER);"
+            read_other_bot INTEGER, read_emoji INTEGER, read_other_user INTEGER);"
         guild_cursor.execute(create_guild_table)
 
-        if len(guild_cursor.execute("SELECT * FROM settings;").description) == 5:
+        create_userjoin_table = "CREATE TABLE IF NOT EXISTS userjoin \
+            (id INTEGER PRIMARY KEY, join_leave INTEGER, guild_deaf INTEGER, \
+            guild_mute INTEGER, self_deaf INTEGER, self_mute INTEGER, self_stream INTEGER, \
+            self_video INTEGER);"
+        guild_cursor.execute(create_userjoin_table)
+
+        if len(guild_cursor.execute("SELECT * FROM settings;").description) == 7 or (
+            len(guild_cursor.execute("SELECT * FROM userjoin;").description) == 8
+        ):
             break
         else:
             guild_con.close()
@@ -42,6 +50,7 @@ async def delete_table():
     guild_cursor = guild_con.cursor()
 
     guild_cursor.execute("DROP TABLE IF EXISTS settings;")
+    guild_cursor.execute("DROP TABLE IF EXISTS userjoin;")
 
     guild_con.commit()
     guild_con.close()

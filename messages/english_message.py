@@ -122,27 +122,27 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
             "description": f"Upon next sentences, {bot_name} will read out each message author's username!",
         },
         "readbot_F": {
-            "title": "Read Bot",
+            "title": "Read Dolphin Messages",
             "description": f"Upon next, {bot_name} will not read out each command's messages or comments!",
         },
         "readbot_T": {
-            "title": "Read Bot",
+            "title": "Read Dolphin Messages",
             "description": f"Upon next, {bot_name} will read out each command's messages or comments!",
         },
         "mention_F": {
-            "title": "Mention",
+            "title": "Read Mention",
             "description": f"Upon next, {bot_name} will not read out the mentions!",
         },
         "mention_T": {
-            "title": "Mention",
+            "title": "Read Mention",
             "description": f"Upon next, {bot_name} will read out the mentions!",
         },
         "readotherbot_F": {
-            "title": "Read Other Bots",
+            "title": "Read Other Bots Messsage",
             "description": f"Upon next, {bot_name} will not read out other bots' messages!",
         },
         "readotherbot_T": {
-            "title": "Read Other Bots",
+            "title": "Read Other Bots Messsage",
             "description": f"Upon next, {bot_name} will read out other bots' messages!",
         },
         "deletebotmessage_F": {
@@ -157,20 +157,20 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
             "title": "Language",
             "description": f"{bot_name}'s language has been changed to English!",
         },
-        "emoji_F": {
-            "title": "Emoji",
+        "reademoji_F": {
+            "title": "Read Emoji",
             "description": f"Upon next, {bot_name} will not read out emojis!",
         },
-        "emoji_T": {
-            "title": "Emoji",
+        "reademoji_T": {
+            "title": "Read Emoji",
             "description": f"Upon next, {bot_name} will read out emojis!",
         },
         "userjoin_F": {
-            "title": "User Join",
+            "title": "Voicechat Actions",
             "description": f"Upon next, {bot_name} will not read out user activities!",
         },
         "userjoin_T": {
-            "title": "User Join",
+            "title": "Voicechat Actions",
             "description": f"Upon next, {bot_name} will read out user activities!",
             "em_addons": {
                 0: "Join/Leave",
@@ -205,6 +205,14 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "forcejapanese_T": {
             "title": "Force Japanese",
             "description": f"Upon next, {bot_name} will forcefully read out messages in Japanese mode!",
+        },
+        "afktimeout_F": {
+            "title": "AFK Timeout Limit",
+            "description": f"Upon next, {bot_name} won't leave automatically when {bot_pronoun} becomes inactive!",
+        },
+        "afktimeout_T": {
+            "title": "AFK Timeout Limit",
+            "description": f"Upon next {bot_name} will leave after {input1} minutes and {input2} seconds, when {bot_name} becomes inactive!",
         },
         "voicedescription": {
             "title": "Voice Description",
@@ -613,6 +621,9 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "missingpermissions": {
             "title": "Error",
             "description": "You are missing some permissions to use this command!",
+            "em_addons": {
+                "List of Missing Permissions: ": str(input1),
+            },
         },
         "userinputerror": {
             "title": "Error",
@@ -661,8 +672,8 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "deletebotmessage_F": "Upon next, I will not delete my messages!",
         "deletebotmessage_T": "Upon next, I will delete my messages!",
         "language": "Hello! My new language is set to English!",
-        "emoji_F": "Upon next, I will not read out emojis!",
-        "emoji_T": "Upon next, I will read out emojis!",
+        "reademoji_F": "Upon next, I will not read out emojis!",
+        "reademoji_T": "Upon next, I will read out emojis!",
         "userjoin_F": "Upon next, I will not read out user activities!",
         "userjoin_T": "Upon next, I will read out user activities!",
         "blacklist": "I will treat the added users and roles as blacklisted!",
@@ -671,6 +682,8 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "readoutsideusers_T": "Upon next, I will read out users' messages who are not in the voice chat!",
         "forcejapanese_F": "Upon next, I will not read out messages in Japanese mode!",
         "forcejapanese_T": "Upon next, I will read out messages in Japanese mode!",
+        "afktimeout_F": "Upon next, I will not leave atuomatically when i become inactive!",
+        "afktimeout_T": f"Upon next, I will leave the voice chat after {input1} minutes and {input2} seconds, when I become inactive!",
         "voicedescription": "I will show your selected voice's description!",
         "defaultvoice": f"{input1}'s voice settings has been changed to this default setting!",
         "editvoice": f"{input1}'s voice settings has been changed to these settings!",
@@ -765,8 +778,8 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "deletebotmessage_F": "Upon next, I will not delete my messages!",
         "deletebotmessage_T": "Upon next, I will delete my messages!",
         "language": "Hello! My new language is set to English!",
-        "emoji_F": "Upon next, I will not read out emojis!",
-        "emoji_T": "Upon next, I will read out emojis!",
+        "reademoji_F": "Upon next, I will not read out emojis!",
+        "reademoji_T": "Upon next, I will read out emojis!",
         "userjoin_F": "Upon next, I will not read out user activities!",
         "userjoin_T": "Upon next, I will read out user activities!",
         "blacklist": "I will treat the added users and roles as blacklisted!",
@@ -775,6 +788,8 @@ async def get_en_msg_voice(bot_name, bot_id, message_type, input1="", input2="")
         "readoutsideusers_T": "Upon next, I will read out users' messages who are not in the voice chat!",
         "forcejapanese_F": "Upon next, I will not read out messages in Japanese mode!",
         "forcejapanese_T": "Upon next, I will read out messages in Japanese mode!",
+        "afktimeout_F": "I, I will not leave the voice, voice chat when I become, in inactive.",
+        "afktimeout_T": f"I, I will leave, the the voice chat after {input1} minutes and {input2} seconds, when I become inactive.",
         "voicedescription": "I will show your selected voice's description!",
         "defaultvoice": f"{input1}'s voice settings has been changed to this default setting!",
         "editvoice": f"{input1}'s voice settings has been changed to these settings!",
